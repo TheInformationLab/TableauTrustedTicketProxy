@@ -2,7 +2,7 @@ var request = require('request');
 
 var tableau= {};
 
-tableau.getTicket = function(serverUrl, username, ip) {
+tableau.getTicket = function(serverUrl, username, ip, callback) {
   var options = { method: 'POST',
     url: serverUrl + '/trusted',
     headers:
@@ -11,12 +11,12 @@ tableau.getTicket = function(serverUrl, username, ip) {
 
   request(options, function (error, response, body) {
     if (error) {
-      res.send({
+      callback({
         result: "error",
         error: error
       })
     } else {
-      res.send({
+      callback({
         result: "success",
         ticket: body
       });
