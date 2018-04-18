@@ -15,12 +15,12 @@ The proxy expects a POST request on port 3000 to the path /tableau/login. The re
 For example using cURL:
 ```
 curl -X POST \
-  http://**Proxy URL**:3000/tableau/login \
+  http://[Proxy URL]:3000/tableau/login \
   -H 'Content-Type: application/json' \
-  -H 'authorization: **Encrypted API Key**' \
+  -H 'authorization: [Encrypted API Key]' \
   -d '{
-	"server":"**Tableau Server URL**",
-	"username": "**Username**",
-	"ip": "**Client IP**"
+	"server":"[Tableau Server URL]",
+	"username": "[Username]",
+	"ip": "[Client IP]"
 }'
 ```
