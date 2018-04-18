@@ -10,7 +10,7 @@ Node JS Proxy for Tableau Server Trusted Ticket authentication allowing applicat
 ## Configure Tableau Server
 Tableau Server needs to trust the proxy server in order to exchange usernames for tickets. For Windows follow [these instructions](https://onlinehelp.tableau.com/current/server/en-us/trusted_auth_trustIP.htm) and on Linux you'll want Step 1 from [this page](http://onlinehelp.tableau.com/current/server-linux/en-us/trusted_auth_config_linux.htm)
 ##Send a ticket request
-The proxy expects a POST request on port 3000 to the path /tableau/login. The request should have an Authorization header containing an encrypted API key which will be used to validate each request. The body is a JSON object containing the Tableau Server URL, username of the account you're logging in, and the IP address of the end-user's machine.
+The proxy expects a POST request on port 3000 to the path /tableau/login. The request should have an Authorization header containing an encrypted API key which will be used to validate each request. The body is a JSON object containing the Tableau Server URL, target site (optional), username of the account you're logging in, and the IP address of the end-user's machine (optional).
 
 For example using cURL:
 ```
@@ -20,6 +20,7 @@ curl -X POST \
   -H 'authorization: [Encrypted API Key]' \
   -d '{
 	"server":"[Tableau Server URL]",
+	"site":"[Site ID]",
 	"username": "[Username]",
 	"ip": "[Client IP]"
 }'
