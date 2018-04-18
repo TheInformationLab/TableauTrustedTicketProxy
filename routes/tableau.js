@@ -6,10 +6,11 @@ module.exports = function(app) {
   app.post('/tableau/login', function(req, res) {
     var key = req.headers['authorization'];
     var serverUrl = req.body.server;
+    var site = req.body.site || null;
     var username = req.body.username;
-    var ip = req.body.ip;
+    var ip = req.body.ip || null;
     if (key && crypt.decrypt(key) == crypt.decrypt(apiKeys.proxy)) {
-      tableau.getTicket(serverUrl, username, ip, function(obj) {
+      tableau.getTicket(serverUrl, site, username, ip, function(obj) {
         if (obj.result == "success") {
           res.send({
             result: "Success",

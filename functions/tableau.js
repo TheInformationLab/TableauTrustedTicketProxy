@@ -2,12 +2,33 @@ var request = require('request');
 
 var tableau= {};
 
-tableau.getTicket = function(serverUrl, username, ip, callback) {
+tableau.getTicket = function(serverUrl, site, username, ip, callback) {
+  if (!serverUrl) {
+    callback({
+      result: "error",
+      error: "Missing Server URL"
+    })
+    return;
+  }
+  if (!username) {
+    callback({
+      result: "error",
+      error: "Missing Username"
+    })
+    return;
+  }
+  var reqBody = { username: username };
+  if (site) {
+    reqBody["target_site"] = site;
+  }
+  if (ip) {
+    reqBody["client_ip"] = ip;
+  }
   var options = { method: 'POST',
     url: serverUrl + '/trusted',
     headers:
      { 'Content-Type': 'application/x-www-form-urlencoded' },
-    form: { username: username } };
+    form: reqBody };
 
   request(options, function (error, response, body) {
     if (error) {
